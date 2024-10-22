@@ -3338,6 +3338,7 @@ static int msPostGISLayerGetNumFeatures(layerObj *layer) {
     msDebug("Error executing SQL: (%s) in msPostGISLayerGetNumFeatures()",
             PQerrorMessage(layerinfo->pgconn));
     msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
+    // test for error message from postgresql
     msSetError(MS_MISCERR, "Error executing SQL. Check server logs.",
                "msPostGISLayerGetNumFeatures()");
     if (pgresult)
