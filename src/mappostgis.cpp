@@ -962,6 +962,7 @@ static int msPostGISRetrieveVersion(PGconn *pgconn) {
 
   if (!pgresult || PQresultStatus(pgresult) != PGRES_TUPLES_OK) {
     msDebug("Error executing SQL: (%s) in msPostGISRetrieveVersion()", sql);
+    msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
     msSetError(MS_QUERYERR, "Error executing SQL. check server logs.",
                "msPostGISRetrieveVersion()");
     return MS_FAILURE;
@@ -1021,6 +1022,7 @@ static int msPostGISRetrievePostgreSQLVersion(PGconn *pgconn) {
   if (!pgresult || PQresultStatus(pgresult) != PGRES_TUPLES_OK) {
     msDebug("Error executing SQL: (%s) in msPostGISRetrievePostgreSQLVersion()",
             sql);
+    msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
     msSetError(MS_QUERYERR, "Error executing SQL. check server logs.",
                "msPostGISRetrievePostgreSQLVersion()");
     return MS_FAILURE;
@@ -2965,6 +2967,7 @@ static int msPostGISLayerGetShape(layerObj *layer, shapeObj *shape,
     if ((!pgresult) || (PQresultStatus(pgresult) != PGRES_TUPLES_OK)) {
       msDebug("msPostGISLayerGetShape(): Error (%s) executing SQL: %s\n",
               PQerrorMessage(layerinfo->pgconn), strSQL.c_str());
+      msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
       msSetError(MS_QUERYERR, "Error executing SQL. Check server logs.",
                  "msPostGISLayerGetShape()");
 
@@ -3132,6 +3135,7 @@ static int msPostGISLayerGetItems(layerObj *layer) {
   if ((!pgresult) || (PQresultStatus(pgresult) != PGRES_TUPLES_OK)) {
     msDebug("msPostGISLayerGetItems(): Error (%s) executing SQL: %s\n",
             PQerrorMessage(layerinfo->pgconn), sql.c_str());
+    msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
     msSetError(MS_QUERYERR, "Error executing SQL. Check server logs",
                "msPostGISLayerGetItems()");
     if (pgresult) {
@@ -3258,6 +3262,7 @@ static int msPostGISLayerGetExtent(layerObj *layer, rectObj *extent) {
   if ((!pgresult) || (PQresultStatus(pgresult) != PGRES_TUPLES_OK)) {
     msDebug("Error executing SQL: (%s) in msPostGISLayerGetExtent()",
             PQerrorMessage(layerinfo->pgconn));
+    msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
     msSetError(MS_MISCERR, "Error executing SQL. Check server logs.",
                "msPostGISLayerGetExtent()");
     if (pgresult)
@@ -3332,6 +3337,7 @@ static int msPostGISLayerGetNumFeatures(layerObj *layer) {
   if ((!pgresult) || (PQresultStatus(pgresult) != PGRES_TUPLES_OK)) {
     msDebug("Error executing SQL: (%s) in msPostGISLayerGetNumFeatures()",
             PQerrorMessage(layerinfo->pgconn));
+    msDebug("SQL result was : %s", PQresultErrorMessage(pgresult));
     msSetError(MS_MISCERR, "Error executing SQL. Check server logs.",
                "msPostGISLayerGetNumFeatures()");
     if (pgresult)
